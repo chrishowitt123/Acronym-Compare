@@ -21,7 +21,7 @@ results = pd.DataFrame(columns = ["orignal", "my_copy"])
 
 for x,y in zip(or_acs, my_acs):
 
-    results = results.append(df[(df['orignal'].str.contains(x, na=False)) &  ~(df['my_copy'].str.contains(y, na=False))])
+    results = results.append(df[(df['orignal'].str.contains(fr'[^a-zA-Z]{x}[^a-zA-Z]', na=False)) &  ~(df['my_copy'].str.contains(fr'[^a-zA-Z]{y}[^a-zA-Z]', na=False))])
     
 results.to_excel('results.xlsx', index = False)
 
