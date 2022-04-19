@@ -23,6 +23,7 @@ for x,y in zip(or_acs, my_acs):
 
     results = results.append(df[(df['orignal'].str.contains(fr'[^a-zA-Z]{x}[^a-zA-Z]', na=False)) &  ~(df['my_copy'].str.contains(fr'[^a-zA-Z]{y}[^a-zA-Z]', na=False))])
     
-results.to_excel('results.xlsx', index = False)
+results.dropna(inplace = True)       
+results.to_excel('results1.xlsx', index = False)
 
 results
