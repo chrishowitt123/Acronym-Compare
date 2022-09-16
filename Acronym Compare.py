@@ -8,22 +8,33 @@ display(HTML("<style>.container { width:100% !important; }</style>"))
 pd.set_option('display.max_colwidth', None)
 os.chdir(r'C:\Users\chris\Documents\Transgola\Clients\PROJECTS\2022\459250222_TM_HS (Fatinha)\Translation\REV TM')
 
+"""
+A program that compares acronyms between source and target documents
 
+"""
+
+# read acronyms
 acros = pd.read_excel('acroy.xlsx')
-acros
 
-or_acs = acros['orignal_acs'].tolist()
-my_acs = acros['my_copy_acs'].tolist()
+# define source acronyms
+sc_acs = acros['source_acs'].tolist()
 
-df = pd.read_excel('splits.xlsx', names= ["orignal", "my_copy"])
+# define target acronyms
+tar_acs = acros['target_acs'].tolist()
 
-results = pd.DataFrame(columns = ["orignal", "my_copy"])
+# read source and target text
+df = pd.read_excel('splits.xlsx', names= ["source", "target"])
 
-for x,y in zip(or_acs, my_acs):
+# define DataFrame to hold results
+results = pd.DataFrame(columns = ["source", "target"])
 
-    results = results.append(df[(df['orignal'].str.contains(fr'[^a-zA-Z]{x}[^a-zA-Z]', na=False)) &  ~(df['my_copy'].str.contains(fr'[^a-zA-Z]{y}[^a-zA-Z]', na=False))])
-    
-results.dropna(inplace = True)       
+# iterate over source and target acronyms 
+for x,y in zip(sc_acs, tar_acs):
+    # filter source and target columns for source and target acronyms
+    results = results.append(df[(df['source'].str.contains(fr'[^a-zA-Z]{x}[^a-zA-Z]', na=False)) &  ~(df['target'].str.contains(fr'[^a-zA-Z]{y}[^a-zA-Z]', na=False))])
+
+# drop nulls    
+results.dropna(inplace = True)  
+
+# write results to Excel
 results.to_excel('results1.xlsx', index = False)
-
-results
