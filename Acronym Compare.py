@@ -9,7 +9,7 @@ pd.set_option('display.max_colwidth', None)
 os.chdir(r'C:\Users\chris\Documents\Transgola\Clients\PROJECTS\2022\459250222_TM_HS (Fatinha)\Translation\REV TM')
 
 """
-A program that compares acronyms between source and target documents
+A program that compares acronyms between source and target documents.
 
 """
 
